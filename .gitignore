@@ -75,3 +75,9 @@ DerivedDataCache/*
 Elistria_Calling/Saved/Crashes/
 
 Elistria_Calling/Saved/
+
+*.uasset
+
+*.ma
+
+models/workspace.mel
