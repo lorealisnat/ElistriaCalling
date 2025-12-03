@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Abilities/GameplayAbility.h"
+#include "InputAction.h"
 #include "PlayerGameplayAbilitiesDataAsset.generated.h"
 
 /**

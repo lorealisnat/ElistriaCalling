@@ -8,6 +8,7 @@
 
 UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Input_Confirm, "Input.Confirm");
 UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Input_Cancel, "Input.Cancel");
+UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Input_SelfCast, "Input.SelfCast");
 
 void UElistriaAbilitySystemComponent::GrantAbilitiesFromDataAsset(const UPlayerGameplayAbilitiesDataAsset* AbilitiesDataAsset)
 {
@@ -22,9 +23,9 @@ void UElistriaAbilitySystemComponent::GrantAbilitiesFromDataAsset(const UPlayerG
 
 		if (FGameplayAbilitySpec* Found = FindAbilitySpecFromHandle(Handle))
 		{
-			if (AbilityInfo.InputTag.IsValid()&&!Found->DynamicAbilityTags.HasTagExact(AbilityInfo.InputTag))
+			if (AbilityInfo.InputTag.IsValid()&&!Found->GetDynamicSpecSourceTags().HasTagExact(AbilityInfo.InputTag))
 			{
-		 			Found->DynamicAbilityTags.AddTagFast(AbilityInfo.InputTag);
+		 			Found->GetDynamicSpecSourceTags().AddTagFast(AbilityInfo.InputTag);
 		 			MarkAbilitySpecDirty(*Found);
 			}
 			TagToSpecHandleMap.Add(AbilityInfo.InputTag, Handle);
@@ -45,6 +46,10 @@ void UElistriaAbilitySystemComponent::HandleInputTag(ETriggerEvent EventType, FG
 	if (InputTag == TAG_Input_Cancel)
 	{
 		TargetCancel();
+		return;
+	}
+	if (InputTag == TAG_Input_SelfCast)
+	{
 		return;
 	}
 
